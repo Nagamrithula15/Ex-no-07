@@ -1,0 +1,70 @@
+//01
+package javaapplication12;
+import java.util.Scanner;
+public class JavaApplication12 {
+    public static void main(String[] args) {
+          String plaintext;
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Enter a plaintext string: ");
+            plaintext = scanner.nextLine().toUpperCase();
+        }
+
+        int shift = 3; 
+        String ciphertext = encrypt(plaintext, shift);
+        System.out.println("The ciphertext string is: " + ciphertext);
+    }
+
+    public static String encrypt(String plaintext, int shift) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < plaintext.length(); i++) {
+            char ch = plaintext.charAt(i);
+            if (ch >= 'A' && ch <= 'Z') {
+                // Shift the letter by the specified shift value
+                char shiftedChar = (char) ((ch - 'A' + shift) % 26 + 'A');
+                result.append(shiftedChar);
+            } else {
+                // If not a letter, keep it unchanged
+                result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+}
+//02
+import java.util.Scanner;
+
+class EmailGenerator {
+    private String firstName;
+    private String lastName;
+
+    public EmailGenerator(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String generateEmail() {
+        String firstPart = firstName.substring(0, 3).toLowerCase();
+        String lastPart = lastName.substring(0, 4).toLowerCase();
+        String domain = "example.com";
+        return firstPart + "." + lastPart + "@" + domain;
+    }
+}
+
+public class EmailAddressGenerator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter first name: ");
+        String firstName = scanner.nextLine();
+
+        System.out.print("Enter last name: ");
+        String lastName = scanner.nextLine();
+
+        EmailGenerator emailGenerator = new EmailGenerator(firstName, lastName);
+        String emailAddress = emailGenerator.generateEmail();
+
+        System.out.println("Generated email address: " + emailAddress);
+    }
+}
